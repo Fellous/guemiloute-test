@@ -36,8 +36,33 @@ const ItemList: React.FC = () => {
     fetchItems();
   }, []);
 
-  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
-    event.currentTarget.src = "https://via.placeholder.com/150";
+  // Fonction pour gérer les erreurs de chargement d'image
+  const handleImageError = async (
+    event: React.SyntheticEvent<HTMLImageElement>,
+    itemId: number
+  ) => {
+    try {
+      // Rechercher une nouvelle image dans l'API si la première ne se charge pas
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/photos?_limit=1"
+      );
+      const data = await response.json();
+
+      const newImageUrl = data[0]?.url || "https://via.placeholder.com/150";
+
+      // Mettre à jour l'image de l'item dans l'état
+      setItems((prevItems) =>
+        prevItems.map((item) =>
+          item.id === itemId ? { ...item, url: newImageUrl } : item
+        )
+      );
+    } catch (error) {
+      console.error(
+        "Erreur lors de la récupération d’une nouvelle image :",
+        error
+      );
+      event.currentTarget.src = "https://via.placeholder.com/150";
+    }
   };
 
   return (
@@ -49,7 +74,7 @@ const ItemList: React.FC = () => {
             <img
               src={item.url}
               alt={item.title}
-              onError={handleImageError}
+              onError={(e) => handleImageError(e, item.id)}
               className="item-image"
             />
             <div className="item-info">
