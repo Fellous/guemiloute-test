@@ -1,0 +1,23 @@
+{
+  "name": "guemiloute",
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    }
+  ],
+  "package-specs": {
+    "module": "es6",
+    "in-source": true
+  },
+  "suffix": ".bs.js",
+  "bs-dependencies": [],
+  "ppx-flags": [],
+  "warnings": {
+    "number": "-44",
+    "error": "+101"
+  },
+  "reason": {
+    "react-jsx": 3
+  }
+}
