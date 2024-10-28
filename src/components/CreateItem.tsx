@@ -8,7 +8,6 @@ const CreateItem: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Logique pour créer un nouvel objet
     const newItem = {
       name: itemName,
       description: itemDescription,
@@ -16,40 +15,43 @@ const CreateItem: React.FC = () => {
 
     console.log("Objet créé:", newItem);
 
-    // Afficher un message de confirmation
     setConfirmationMessage("Objet créé avec succès !");
 
-    // Réinitialiser le formulaire et masquer le message après quelques secondes
     setTimeout(() => setConfirmationMessage(""), 3000);
     setItemName("");
     setItemDescription("");
   };
 
   return (
-    <div>
+    <div className="create-item-container">
       <h2>Créer un nouvel objet à prêter</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form onSubmit={handleSubmit} className="create-item-form">
+        <div className="form-group">
           <label>Nom de l'objet</label>
           <input
             type="text"
             value={itemName}
             onChange={(e) => setItemName(e.target.value)}
             required
+            className="form-input"
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Description de l'objet</label>
-          <input
-            type="text"
+          <textarea
             value={itemDescription}
             onChange={(e) => setItemDescription(e.target.value)}
             required
+            className="form-input"
           />
         </div>
-        <button type="submit">Créer l'objet</button>
+        <button type="submit" className="submit-button">
+          Créer l'objet
+        </button>
       </form>
-      {confirmationMessage && <p>{confirmationMessage}</p>}
+      {confirmationMessage && (
+        <p className="confirmation-message">{confirmationMessage}</p>
+      )}
     </div>
   );
 };
