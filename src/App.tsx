@@ -1,5 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+  Navigate,
+} from "react-router-dom";
 import "./App.css";
 import CreateItem from "./components/CreateItem";
 import ItemList from "./components/ItemList";
@@ -15,17 +21,21 @@ function App() {
         <header className="App-header">
           <h1>Bienvenue sur Guemiloute</h1>
           <nav>
-            <Link to="/">Accueil</Link> |<Link to="/login">Connexion</Link> |
+            <Link to="/login">Connexion</Link> |
             <Link to="/signup">Inscription</Link> |
+            <Link to="/items">Liste des objets disponibles</Link> |
             <Link to="/create-item">Créer un objet</Link> |
-            <Link to="/user-management">Gestion des utilisateurs</Link> |
-            <Link to="/home">Page d'accueil</Link>
+            <Link to="/user-management">Gestion des utilisateurs</Link>
           </nav>
         </header>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          {/* Redirige vers la page de connexion par défaut */}
+          <Route path="/" element={<Navigate to="/login" replace />} />
+
+          {/* Pages principales */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/items" element={<ItemList />} />
           <Route path="/create-item" element={<CreateItem />} />
           <Route path="/user-management" element={<UserManagement />} />
           <Route path="/home" element={<HomePage />} />
