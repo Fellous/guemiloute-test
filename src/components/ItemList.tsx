@@ -1,57 +1,56 @@
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import "../assets/styles/ItemList.css";
 
 interface Item {
   id: number;
   title: string;
   url: string;
   status: "available" | "lent";
+  quantity: number;
+  category: string;
 }
 
 const ItemList: React.FC = () => {
   const [items, setItems] = useState<Item[]>([]);
+  const [filterStatus, setFilterStatus] = useState<
+    "all" | "available" | "lent"
+  >("all");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
   useEffect(() => {
-    // Récupérer les données de l'API JSONPlaceholder
     const fetchItems = async () => {
       try {
         const response = await fetch(
-          "https://jsonplaceholder.typicode.com/photos?_limit=10"
+          "https://fakestoreapi.com/products?limit=10"
         );
         const data = await response.json();
-
-        // Transformer les données pour ajouter un statut aléatoire
         const formattedData = data.map((item: any) => ({
           id: item.id,
           title: item.title,
-          url: item.url,
+          url: item.image,
           status: Math.random() > 0.5 ? "available" : "lent",
+          quantity: Math.floor(Math.random() * 10) + 1,
+          category: item.category,
         }));
-
         setItems(formattedData);
       } catch (error) {
         console.error("Erreur lors de la récupération des données :", error);
       }
     };
-
     fetchItems();
   }, []);
 
-  // Fonction pour gérer les erreurs de chargement d'image
   const handleImageError = async (
     event: React.SyntheticEvent<HTMLImageElement>,
     itemId: number
   ) => {
     try {
-      // Rechercher une nouvelle image dans l'API si la première ne se charge pas
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/photos?_limit=1"
-      );
-      const data = await response.json();
+      const response = await fetch("https://via.placeholder.com/150");
+      const newImageUrl =
+        (await response).url || "https://via.placeholder.com/150";
 
-      const newImageUrl = data[0]?.url || "https://via.placeholder.com/150";
-
-      // Mettre à jour l'image de l'item dans l'état
       setItems((prevItems) =>
         prevItems.map((item) =>
           item.id === itemId ? { ...item, url: newImageUrl } : item
@@ -66,25 +65,83 @@ const ItemList: React.FC = () => {
     }
   };
 
+  const filteredItems = items.filter((item) => {
+    const matchesStatus =
+      filterStatus === "all" || item.status === filterStatus;
+    const matchesCategory =
+      selectedCategory === "all" || item.category === selectedCategory;
+    const matchesSearch = item.title
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    return matchesStatus && matchesCategory && matchesSearch;
+  });
+
   return (
-    <div>
-      <h2>Liste des Objets</h2>
+    <div className="item-list-container">
+      <h2>Catalogue des Objets</h2>
+
+      <input
+        type="text"
+        placeholder="Rechercher un objet..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="search-bar"
+      />
+
+      <div className="filters">
+        <label>Filtrer par statut :</label>
+        <select
+          value={filterStatus}
+          onChange={(e) =>
+            setFilterStatus(e.target.value as "all" | "available" | "lent")
+          }
+        >
+          <option value="all">Tous</option>
+          <option value="available">Disponible</option>
+          <option value="lent">Prêté</option>
+        </select>
+
+        <label>Filtrer par catégorie :</label>
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+        >
+          <option value="all">Toutes</option>
+          {[...new Set(items.map((item) => item.category))].map((category) => (
+            <option key={category} value={category}>
+              {category.charAt(0).toUpperCase() + category.slice(1)}
+            </option>
+          ))}
+        </select>
+      </div>
+
       <div className="grid-container">
-        {items.map((item) => (
+        {filteredItems.map((item) => (
           <div key={item.id} className="item-card">
-            <Link to={`/item/${encodeURIComponent(item.title)}`}>
-            <img
-              src={item.url}
-              alt={item.title}
-              onError={(e) => handleImageError(e, item.id)}
-              className="item-image"
-            />
-            <div className="item-info">
-              <h4>{item.title}</h4>
-              <span className={`status ${item.status}`}>
-                {item.status === "available" ? "Disponible" : "Prêté"}
-              </span>
-            </div>
+            <Link
+              to={`/item/${encodeURIComponent(item.title)}`}
+              state={{
+                title: item.title,
+                url: item.url,
+                quantity: item.quantity,
+                category: item.category,
+                addedDate: "2024-10-20",
+              }}
+            >
+              <img
+                src={item.url}
+                alt={item.title}
+                onError={(e) => handleImageError(e, item.id)}
+                className="item-image"
+              />
+              <div className="item-info">
+                <h4>{item.title}</h4>
+                <p>Catégorie : {item.category}</p>
+                <p>Quantité disponible : {item.quantity}</p>
+                <span className={`status ${item.status}`}>
+                  {item.status === "available" ? "Disponible" : "Prêté"}
+                </span>
+              </div>
             </Link>
           </div>
         ))}
