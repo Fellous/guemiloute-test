@@ -1,0 +1,48 @@
+.home-container {
+  padding: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+  animation: fadeIn 0.5s ease;
+  color: #333;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.home-container h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #4caf50;
+  margin-bottom: 20px;
+}
+
+.intro {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.rules-section, .features-section {
+  margin-top: 30px;
+}
+
+.rules-section h2, .features-section h2 {
+  font-size: 1.8rem;
+  color: #4caf50;
+  margin-bottom: 10px;
+}
+
+.rules-section ul, .features-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.rules-section li, .features-section li {
+  background: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
