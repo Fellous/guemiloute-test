@@ -120,3 +120,33 @@
   font-weight: bold;
   margin-top: 10px;
 }
+/* Styles généraux pour la barre de navigation */
+nav {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  background-color: #282c34;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+nav a {
+  color: #61dafb;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+nav a:hover {
+  background-color: #61dafb;
+  color: #282c34;
+}
+
+.App-header h1 {
+  color: #282c34;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
