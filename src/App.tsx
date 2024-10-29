@@ -12,7 +12,8 @@ import ItemList from "./components/ItemList";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import UserManagement from "./components/UserManagement";
-import HomePage from "./components/HomePage";
+import {make as RescriptApp} from "./App.bs"; // Nouveau composant en ReScript
+import { make as UserForm } from "./components/rescript/UserForm.bs"; // Composant UserForm en ReScript
 
 function App() {
   return (
@@ -25,7 +26,9 @@ function App() {
             <Link to="/signup">Inscription</Link> |
             <Link to="/items">Liste des objets disponibles</Link> |
             <Link to="/create-item">Créer un objet</Link> |
-            <Link to="/user-management">Gestion des utilisateurs</Link>
+            <Link to="/user-management">Gestion des utilisateurs</Link> |
+            <Link to="/rescript-app">App ReScript</Link> |
+            <Link to="/user-form">Formulaire Utilisateur ReScript</Link>
           </nav>
         </header>
         <Routes>
@@ -38,7 +41,10 @@ function App() {
           <Route path="/items" element={<ItemList />} />
           <Route path="/create-item" element={<CreateItem />} />
           <Route path="/user-management" element={<UserManagement />} />
-          <Route path="/home" element={<HomePage />} />
+
+          {/* Pages ReScript */}
+          <Route path="/rescript-app" element={<RescriptApp />} />
+          <Route path="/user-form" element={<UserForm />} />
         </Routes>
       </div>
     </Router>

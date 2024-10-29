@@ -1,0 +1,17 @@
+rescript = 1
+g_finger := /Users/gadzana/Documents/guemiloute/node_modules/@rescript/react/lib/ocaml/install.stamp
+rule astj
+  command = /Users/gadzana/Documents/guemiloute/node_modules/rescript/darwinarm64/bsc.exe -w -44 -warn-error +101 -bs-v 11.1.4 -bs-jsx 3 -uncurried  -absname -bs-ast -o $out $i
+o src/App.ast : astj ../../src/App.res
+rule deps
+  command = /Users/gadzana/Documents/guemiloute/node_modules/rescript/darwinarm64/bsb_helper.exe -hash acd11bd7fe880c49cd5672da74bd9929 $in
+  restat = 1
+o src/App.d : deps src/App.ast
+rule mij
+  command = /Users/gadzana/Documents/guemiloute/node_modules/rescript/darwinarm64/bsc.exe -I src/components/rescript -I src/components -I src -I /Users/gadzana/Documents/guemiloute/node_modules/@rescript/react/lib/ocaml  -w -44 -warn-error +101 -uncurried -bs-package-name guemiloute -bs-package-output esmodule:$in_d:.bs.js -bs-v $g_finger $i
+  dyndep = 1
+  restat = 1
+o src/App.cmj src/App.cmi ../../src/App.bs.js : mij src/App.ast
+o src/components/rescript/UserForm.ast : astj ../../src/components/rescript/UserForm.res
+o src/components/rescript/UserForm.d : deps src/components/rescript/UserForm.ast
+o src/components/rescript/UserForm.cmj src/components/rescript/UserForm.cmi ../../src/components/rescript/UserForm.bs.js : mij src/components/rescript/UserForm.ast
