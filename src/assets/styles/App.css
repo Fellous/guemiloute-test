@@ -150,3 +150,75 @@ nav a:hover {
   margin-bottom: 1rem;
   text-align: center;
 }
+
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+  overflow: hidden;
+  background: #eec0c0; /* Couleur de fond de base */
+}
+
+/* Constellation de formes flottantes */
+.animated-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1; /* Place le fond derrière le contenu */
+}
+
+/* Style pour chaque forme animée */
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: move 15s ease-in-out infinite;
+}
+
+/* Dégradés de couleurs pour chaque forme */
+.shape-1 { width: 200px; height: 200px; background: linear-gradient(45deg, #ff9a9e, #fad0c4); }
+.shape-2 { width: 150px; height: 150px; background: linear-gradient(45deg, #a18cd1, #fbc2eb); }
+.shape-3 { width: 250px; height: 250px; background: linear-gradient(45deg, #fad0c4, #ffd1ff); }
+.shape-4 { width: 120px; height: 120px; background: linear-gradient(45deg, #fccb90, #d57eeb); }
+
+/* Positions initiales des formes */
+.shape-1 { top: 10%; left: 20%; }
+.shape-2 { top: 50%; left: 70%; }
+.shape-3 { top: 80%; left: 10%; }
+.shape-4 { top: 30%; left: 80%; }
+
+/* Animation de déplacement et changement de position */
+@keyframes move {
+  0% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(50px, -20px) scale(1.1); }
+  50% { transform: translate(-30px, 50px) scale(0.9); }
+  75% { transform: translate(20px, -30px) scale(1.2); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+
+/* App.css */
+.App-header {
+  background-color: rgba(242, 118, 118, 0.9);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.App-header nav a {
+  color: #b0c4de;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.App-header nav a:hover {
+  color: #ffffff;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

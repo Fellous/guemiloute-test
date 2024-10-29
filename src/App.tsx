@@ -22,6 +22,12 @@ function App() {
   return (
     <Router>
       <div className="App">
+      <div className="animated-background">
+        <div className="shape shape-1"></div>
+        <div className="shape shape-2"></div>
+        <div className="shape shape-3"></div>
+        <div className="shape shape-4"></div>
+      </div>
         <header className="App-header">
           <h1>Bienvenue sur Guemiloute</h1>
           <nav>
