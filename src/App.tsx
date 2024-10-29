@@ -6,7 +6,7 @@ import {
   Link,
   Navigate,
 } from "react-router-dom";
-import "./App.css";
+import "./assets/styles/App.css";
 import CreateItem from "./components/CreateItem";
 import ItemList from "./components/ItemList";
 import Login from "./components/Login";

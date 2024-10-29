@@ -1,6 +1,5 @@
 import React from "react";
-import "../HomePage.css";
-
+import "../assets/styles/HomePage.css";
 const HomePage: React.FC = () => {
   return (
     <div className="home-container">

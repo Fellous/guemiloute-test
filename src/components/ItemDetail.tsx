@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import "../ItemDetail.css";
+import "../assets/styles/ItemDetail.css";
 import { toast } from "react-toastify";
 
 
