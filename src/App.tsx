@@ -12,7 +12,7 @@ import ItemList from "./components/ItemList";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import UserManagement from "./components/UserManagement";
-import {make as RescriptApp} from "./App.bs"; // Nouveau composant en ReScript
+import { make as RescriptApp } from "./App.bs"; // Nouveau composant en ReScript
 import { make as UserForm } from "./components/rescript/UserForm.bs"; // Composant UserForm en ReScript
 import ItemDetail from "./components/ItemDetail";
 import { ToastContainer } from "react-toastify";
