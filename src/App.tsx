@@ -14,6 +14,9 @@ import Signup from "./components/Signup";
 import UserManagement from "./components/UserManagement";
 import {make as RescriptApp} from "./App.bs"; // Nouveau composant en ReScript
 import { make as UserForm } from "./components/rescript/UserForm.bs"; // Composant UserForm en ReScript
+import ItemDetail from "./components/ItemDetail";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -41,11 +44,13 @@ function App() {
           <Route path="/items" element={<ItemList />} />
           <Route path="/create-item" element={<CreateItem />} />
           <Route path="/user-management" element={<UserManagement />} />
+          <Route path="/item/:title" element={<ItemDetail />} />
 
           {/* Pages ReScript */}
           <Route path="/rescript-app" element={<RescriptApp />} />
           <Route path="/user-form" element={<UserForm />} />
         </Routes>
+        <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
       </div>
     </Router>
   );

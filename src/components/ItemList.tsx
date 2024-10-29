@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 
 interface Item {
   id: number;
@@ -71,6 +72,7 @@ const ItemList: React.FC = () => {
       <div className="grid-container">
         {items.map((item) => (
           <div key={item.id} className="item-card">
+            <Link to={`/item/${encodeURIComponent(item.title)}`}>
             <img
               src={item.url}
               alt={item.title}
@@ -83,6 +85,7 @@ const ItemList: React.FC = () => {
                 {item.status === "available" ? "Disponible" : "Prêté"}
               </span>
             </div>
+            </Link>
           </div>
         ))}
       </div>
