@@ -5,6 +5,7 @@ import CreateItem from "./components/CreateItem";
 import ItemList from "./components/ItemList";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import UserManagement from "./components/UserManagement";
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
           <nav>
             <Link to="/">Accueil</Link> |<Link to="/login">Connexion</Link> |
             <Link to="/signup">Inscription</Link> |
-            <Link to="/create-item">Créer un objet</Link>
+            <Link to="/create-item">Créer un objet</Link> |
+            <Link to="/user-management">Gestion des utilisateurs</Link>
           </nav>
         </header>
         <Routes>
@@ -23,6 +25,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/create-item" element={<CreateItem />} />
+          <Route path="/user-management" element={<UserManagement />} />
         </Routes>
       </div>
     </Router>
