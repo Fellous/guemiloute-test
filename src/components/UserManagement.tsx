@@ -8,9 +8,7 @@ interface User {
   email: string;
   role: "borrower" | "hostFamily" | "admin";
   status: "pending" | "approved";
-}Permettre à un utilisateur de demander l'emprunt d'un objet disponible dans le système.
-
-Je veux maintenant créer un composant qui permet maintenant d'ajouter cette fonctionnalité 
+}
 
 const initialUsers: User[] = [
   {
