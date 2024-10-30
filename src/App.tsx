@@ -14,6 +14,7 @@ import Signup from "./components/Signup";
 import UserManagement from "./components/UserManagement";
 import { make as RescriptApp } from "./App.bs"; // Nouveau composant en ReScript
 import { make as UserForm } from "./components/rescript/UserForm.bs"; // Composant UserForm en ReScript
+import { make as HomePage } from "./components/rescript/HomePage.bs"; // Importez HomePage en ReScript
 import ItemDetail from "./components/ItemDetail";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -22,12 +23,12 @@ function App() {
   return (
     <Router>
       <div className="App">
-      <div className="animated-background">
-        <div className="shape shape-1"></div>
-        <div className="shape shape-2"></div>
-        <div className="shape shape-3"></div>
-        <div className="shape shape-4"></div>
-      </div>
+        <div className="animated-background">
+          <div className="shape shape-1"></div>
+          <div className="shape shape-2"></div>
+          <div className="shape shape-3"></div>
+          <div className="shape shape-4"></div>
+        </div>
         <header className="App-header">
           <h1>Bienvenue sur Guemiloute</h1>
           <nav>
@@ -38,6 +39,7 @@ function App() {
             <Link to="/user-management">Gestion des utilisateurs</Link> |
             <Link to="/rescript-app">App ReScript</Link> |
             <Link to="/user-form">Formulaire Utilisateur ReScript</Link>
+            <Link to="/HomePage">Home page ReScript</Link>
           </nav>
         </header>
         <Routes>
@@ -55,6 +57,7 @@ function App() {
           {/* Pages ReScript */}
           <Route path="/rescript-app" element={<RescriptApp />} />
           <Route path="/user-form" element={<UserForm />} />
+          <Route path="/HomePage" element={<HomePage />} />
         </Routes>
         <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
       </div>

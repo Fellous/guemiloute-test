@@ -7,8 +7,12 @@ o App.cmi : cp ../bs/src/App.cmi
 o App.cmj : cp ../bs/src/App.cmj
 o App.cmt : cp ../bs/src/App.cmt
 o App.res : cp ../../src/App.res
+o HomePage.cmi : cp ../bs/src/components/rescript/HomePage.cmi
+o HomePage.cmj : cp ../bs/src/components/rescript/HomePage.cmj
+o HomePage.cmt : cp ../bs/src/components/rescript/HomePage.cmt
+o HomePage.res : cp ../../src/components/rescript/HomePage.res
 o UserForm.cmi : cp ../bs/src/components/rescript/UserForm.cmi
 o UserForm.cmj : cp ../bs/src/components/rescript/UserForm.cmj
 o UserForm.cmt : cp ../bs/src/components/rescript/UserForm.cmt
 o UserForm.res : cp ../../src/components/rescript/UserForm.res
-build install.stamp : touch App.cmi App.cmj UserForm.cmi UserForm.cmj 
+build install.stamp : touch App.cmi App.cmj HomePage.cmi HomePage.cmj UserForm.cmi UserForm.cmj 
