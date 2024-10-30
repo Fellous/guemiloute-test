@@ -1,6 +1,6 @@
 // HomePage.res
 // Importer le fichier CSS associé
-  %raw(`import '../../assets/styles/HomePage.css'`)
+  %raw("require('../../assets/styles/HomePage.css')")
 @react.component
 let make = () => {
   // Ouvrir le module React
