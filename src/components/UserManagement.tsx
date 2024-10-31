@@ -1,60 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "../assets/styles/UserManagement.css";
 
 interface User {
   id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  role: "borrower" | "hostFamily" | "admin";
-  status: "pending" | "approved";
+  username: string;
+  password: string; // pour illustration, mais il serait préférable de ne pas afficher le mot de passe
+  role: "borrower" | "host" | "admin";
+  created_at: string;
 }
 
-const initialUsers: User[] = [
-  {
-    id: 1,
-    firstName: "Alice",
-    lastName: "Doe",
-    email: "alice@example.com",
-    role: "hostFamily",
-    status: "pending",
-  },
-  {
-    id: 2,
-    firstName: "Bob",
-    lastName: "Smith",
-    email: "bob@example.com",
-    role: "borrower",
-    status: "approved",
-  },
-  {
-    id: 3,
-    firstName: "Charlie",
-    lastName: "Brown",
-    email: "charlie@example.com",
-    role: "hostFamily",
-    status: "approved",
-  },
-  {
-    id: 4,
-    firstName: "Diana",
-    lastName: "Prince",
-    email: "diana@example.com",
-    role: "admin",
-    status: "approved",
-  },
-];
-
 const UserManagement: React.FC = () => {
-  const [users, setUsers] = useState<User[]>(initialUsers);
+  const [users, setUsers] = useState<User[]>([]);
 
-  const approveUser = (userId: number) => {
-    setUsers(
-      users.map((user) =>
-        user.id === userId ? { ...user, status: "approved" } : user
-      )
-    );
-  };
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/users`)
+      .then((response) => {
+        setUsers(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching users from API:", error);
+      });
+  }, []);
 
   return (
     <div className="user-management-container">
@@ -62,34 +30,17 @@ const UserManagement: React.FC = () => {
       <table className="user-table">
         <thead>
           <tr>
-            <th>Nom</th>
-            <th>Email</th>
+            <th>Nom d'utilisateur</th>
             <th>Rôle</th>
-            <th>Statut</th>
-            <th>Action</th>
+            <th>Date de création</th>
           </tr>
         </thead>
         <tbody>
           {users.map((user) => (
             <tr key={user.id}>
-              <td>
-                {user.firstName} {user.lastName}
-              </td>
-              <td>{user.email}</td>
-              <td>
-                {user.role === "hostFamily" ? "Famille d'accueil" : user.role}
-              </td>
-              <td>{user.status === "pending" ? "En attente" : "Approuvé"}</td>
-              <td>
-                {user.role === "hostFamily" && user.status === "pending" && (
-                  <button
-                    onClick={() => approveUser(user.id)}
-                    className="approve-button"
-                  >
-                    Valider
-                  </button>
-                )}
-              </td>
+              <td>{user.username}</td>
+              <td>{user.role === "host" ? "Famille d'accueil" : user.role}</td>
+              <td>{new Date(user.created_at).toLocaleDateString()}</td>
             </tr>
           ))}
         </tbody>
