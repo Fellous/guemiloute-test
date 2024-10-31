@@ -26,6 +26,7 @@ const Login: React.FC = () => {
       setErrorMessage("");
       console.log("Connexion réussie, token:", response.data.token);
       navigate("/items"); // Redirige vers la liste des objets après connexion
+      window.location.reload()
     } catch (error) {
       setErrorMessage(
         "Échec de la connexion : email ou mot de passe incorrect."

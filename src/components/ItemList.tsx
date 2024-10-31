@@ -132,7 +132,7 @@ const ItemList: React.FC = () => {
                 src={item.url}
                 alt={item.title}
                 onError={(e) => handleImageError(e, item.id)}
-                className="item-image"
+                className="item-image2"
               />
               <div className="item-info">
                 <h4>{item.title}</h4>
