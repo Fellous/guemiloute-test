@@ -22,48 +22,15 @@ const ItemList: React.FC = () => {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const response = await fetch(
-          "https://fakestoreapi.com/products?limit=10"
-        );
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/items`);
         const data = await response.json();
-        const formattedData = data.map((item: any) => ({
-          id: item.id,
-          title: item.title,
-          url: item.image,
-          status: Math.random() > 0.5 ? "available" : "lent",
-          quantity: Math.floor(Math.random() * 10) + 1,
-          category: item.category,
-        }));
-        setItems(formattedData);
+        setItems(data);
       } catch (error) {
         console.error("Erreur lors de la récupération des données :", error);
       }
     };
     fetchItems();
   }, []);
-
-  const handleImageError = async (
-    event: React.SyntheticEvent<HTMLImageElement>,
-    itemId: number
-  ) => {
-    try {
-      const response = await fetch("https://via.placeholder.com/150");
-      const newImageUrl =
-        (await response).url || "https://via.placeholder.com/150";
-
-      setItems((prevItems) =>
-        prevItems.map((item) =>
-          item.id === itemId ? { ...item, url: newImageUrl } : item
-        )
-      );
-    } catch (error) {
-      console.error(
-        "Erreur lors de la récupération d’une nouvelle image :",
-        error
-      );
-      event.currentTarget.src = "https://via.placeholder.com/150";
-    }
-  };
 
   const filteredItems = items.filter((item) => {
     const matchesStatus =
@@ -131,7 +98,7 @@ const ItemList: React.FC = () => {
               <img
                 src={item.url}
                 alt={item.title}
-                onError={(e) => handleImageError(e, item.id)}
+                onError={(e) => (e.currentTarget.src = "/img/placeholder.jpg")}
                 className="item-image2"
               />
               <div className="item-info">
