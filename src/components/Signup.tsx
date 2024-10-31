@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "../assets/styles/Signup.css";
 
 const Signup: React.FC = () => {
@@ -9,7 +10,7 @@ const Signup: React.FC = () => {
   const [category, setCategory] = useState("borrower");
   const [confirmationMessage, setConfirmationMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const newUser = {
@@ -17,17 +18,24 @@ const Signup: React.FC = () => {
       lastName,
       email,
       password,
-      category,
+      role: category, // Utilisation de `role` ici pour correspondre avec le backend
     };
 
-    console.log("Nouvel utilisateur:", newUser);
-
-    if (category === "hostFamily") {
-      setConfirmationMessage(
-        "Votre demande d'inscription en tant que famille d'accueil est en attente de validation."
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_API_URL}/users/register`,
+        newUser
       );
-    } else {
-      setConfirmationMessage("Inscription réussie en tant qu'emprunteur !");
+      setConfirmationMessage(
+        category === "host"
+          ? "Votre demande d'inscription en tant que famille d'accueil est en attente de validation."
+          : "Inscription réussie en tant qu'emprunteur !"
+      );
+    } catch (error) {
+      console.error("Erreur lors de l'inscription:", error);
+      setConfirmationMessage(
+        "Erreur lors de l'inscription. Veuillez réessayer."
+      );
     }
 
     setTimeout(() => setConfirmationMessage(""), 5000);
@@ -90,7 +98,7 @@ const Signup: React.FC = () => {
             className="form-input"
           >
             <option value="borrower">Emprunteur</option>
-            <option value="hostFamily">Famille d'accueil</option>
+            <option value="host">Famille d'accueil</option>
           </select>
         </div>
         {confirmationMessage && (
