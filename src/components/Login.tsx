@@ -1,19 +1,36 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "../assets/styles/Login.css";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email === "" || password === "") {
+
+    if (!email || !password) {
       setErrorMessage("L'email et le mot de passe sont requis.");
-    } else {
-      // Logique d'authentification (à compléter)
-      console.log("Tentative de connexion avec :", { email, password });
-      setErrorMessage(""); // Réinitialiser le message d'erreur
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/users/login`,
+        { email, password }
+      );
+      localStorage.setItem("token", response.data.token);
+      setErrorMessage("");
+      console.log("Connexion réussie, token:", response.data.token);
+      navigate("/items"); // Redirige vers la liste des objets après connexion
+    } catch (error) {
+      setErrorMessage(
+        "Échec de la connexion : email ou mot de passe incorrect."
+      );
+      console.error("Erreur lors de la connexion:", error);
     }
   };
 

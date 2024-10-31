@@ -12,14 +12,21 @@ import ItemList from "./components/ItemList";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import UserManagement from "./components/UserManagement";
-import { make as RescriptApp } from "./App.bs"; // Nouveau composant en ReScript
-import { make as UserForm } from "./components/rescript/UserForm.bs"; // Composant UserForm en ReScript
-import { make as HomePage } from "./components/rescript/HomePage.bs"; // Importez HomePage en ReScript
+import { make as RescriptApp } from "./App.bs";
+import { make as UserForm } from "./components/rescript/UserForm.bs";
+import { make as HomePage } from "./components/rescript/HomePage.bs";
 import ItemDetail from "./components/ItemDetail";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+  };
+
+  const isLoggedIn = Boolean(localStorage.getItem("token"));
+
   return (
     <Router>
       <div className="App">
@@ -32,29 +39,34 @@ function App() {
         <header className="App-header">
           <h1>Bienvenue sur Guemiloute</h1>
           <nav>
-            <Link to="/login">Connexion</Link> |
-            <Link to="/signup">Inscription</Link> |
-            <Link to="/items">Liste des objets disponibles</Link> |
-            <Link to="/create-item">Créer un objet</Link> |
-            <Link to="/user-management">Gestion des utilisateurs</Link> |
+            {isLoggedIn ? (
+              <>
+                <Link to="/items">Liste des objets disponibles</Link> |
+                <Link to="/create-item">Créer un objet</Link> |
+                <Link to="/user-management">Gestion des utilisateurs</Link> |
+                <button onClick={handleLogout} className="logout-button">
+                  Déconnexion
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to="/login">Connexion</Link> |
+                <Link to="/signup">Inscription</Link>
+              </>
+            )}
             <Link to="/rescript-app">App ReScript</Link> |
-            <Link to="/user-form">Formulaire Utilisateur ReScript</Link>
+            <Link to="/user-form">Formulaire Utilisateur ReScript</Link> |
             <Link to="/HomePage">Home page ReScript</Link>
           </nav>
         </header>
         <Routes>
-          {/* Redirige vers la page de connexion par défaut */}
           <Route path="/" element={<Navigate to="/login" replace />} />
-
-          {/* Pages principales */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/items" element={<ItemList />} />
           <Route path="/create-item" element={<CreateItem />} />
           <Route path="/user-management" element={<UserManagement />} />
           <Route path="/item/:title" element={<ItemDetail />} />
-
-          {/* Pages ReScript */}
           <Route path="/rescript-app" element={<RescriptApp />} />
           <Route path="/user-form" element={<UserForm />} />
           <Route path="/HomePage" element={<HomePage />} />
