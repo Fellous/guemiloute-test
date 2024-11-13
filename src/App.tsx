@@ -6,6 +6,14 @@ import {
   Link,
   Navigate,
 } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faSignOutAlt,
+  faList,
+  faPlus,
+  faUsers,
+  faHome,
+} from "@fortawesome/free-solid-svg-icons";
 import "./assets/styles/App.css";
 import CreateItem from "./components/CreateItem";
 import ItemList from "./components/ItemList";
@@ -37,26 +45,49 @@ function App() {
           <div className="shape shape-4"></div>
         </div>
         <header className="App-header">
-          <h1>Bienvenue sur Guemiloute</h1>
-          <nav>
+          <nav className="navbar">
+            <Link to="/" className="logo">
+              Guemiloute
+            </Link>
             {isLoggedIn ? (
-              <>
-                <Link to="/items">Liste des objets disponibles</Link> |
-                <Link to="/create-item">Créer un objet</Link> |
-                <Link to="/user-management">Gestion des utilisateurs</Link> |
-                <button onClick={handleLogout} className="logout-button">
-                  Déconnexion
+              <div className="nav-links">
+                <Link to="/items" className="nav-link">
+                  <FontAwesomeIcon icon={faList} /> Liste des objets
+                </Link>
+                <Link to="/create-item" className="nav-link">
+                  <FontAwesomeIcon icon={faPlus} /> Créer un objet
+                </Link>
+                <Link to="/user-management" className="nav-link">
+                  <FontAwesomeIcon icon={faUsers} /> Gestion des utilisateurs
+                </Link>
+                <div className="dropdown">
+                  <button className="dropdown-button">Pages ReScript</button>
+                  <div className="dropdown-content">
+                    <Link to="/HomePage" className="dropdown-link">
+                      Home ReScript
+                    </Link>
+                    <Link to="/user-form" className="dropdown-link">
+                      Formulaire Utilisateur ReScript
+                    </Link>
+                  </div>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="logout-button nav-link"
+                >
+                  <FontAwesomeIcon icon={faSignOutAlt} /> Déconnexion
                 </button>
-              </>
+              </div>
             ) : (
-              <>
-                <Link to="/login">Connexion</Link> |
-                <Link to="/signup">Inscription</Link>
-              </>
+              <div className="nav-links">
+                <Link to="/login" className="nav-link">
+                  Connexion
+                </Link>
+                <Link to="/signup" className="nav-link">
+                  Inscription
+                </Link>
+              </div>
             )}
-            <Link to="/rescript-app">App ReScript</Link> |
-            <Link to="/user-form">Formulaire Utilisateur ReScript</Link> |
-            <Link to="/HomePage">Home page ReScript</Link>
           </nav>
         </header>
         <Routes>
