@@ -5,7 +5,7 @@ import "../assets/styles/ItemList.css";
 interface Item {
   id: number;
   title: string;
-  url: string;
+  image_url: string;
   status: "available" | "lent";
   quantity: number;
   category: string;
@@ -89,14 +89,14 @@ const ItemList: React.FC = () => {
               to={`/item/${encodeURIComponent(item.title)}`}
               state={{
                 title: item.title,
-                url: item.url,
+                url: item.image_url,
                 quantity: item.quantity,
                 category: item.category,
                 addedDate: "2024-10-20",
               }}
             >
               <img
-                src={item.url}
+                src={item.image_url}
                 alt={item.title}
                 onError={(e) => (e.currentTarget.src = "/img/placeholder.jpg")}
                 className="item-image2"
