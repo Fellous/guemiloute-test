@@ -3,23 +3,100 @@
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  max-width: 800px;
+  max-width: 1400px;
   margin: 40px auto;
   animation: fadeIn 0.5s ease;
+}
+
+/* Animation pour l'apparition en fondu */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .user-management-container h2 {
   text-align: center;
   color: #333;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
+/* Formulaire de création d'utilisateur */
+.create-user-form,
+.edit-user-form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.create-user-form input[type="text"],
+.create-user-form input[type="password"],
+.create-user-form select,
+.edit-user-form input[type="text"],
+.edit-user-form input[type="password"],
+.edit-user-form select {
+  padding: 10px;
+  height: 36px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: border-color 0.3s ease;
+  width: 150px;
+  box-sizing: border-box;
+}
+
+.create-user-form input[type="password"],
+.edit-user-form input[type="password"] {
+  width: 200px;
+}
+
+.create-user-form input:focus,
+.create-user-form select:focus,
+.edit-user-form input:focus,
+.edit-user-form select:focus {
+  border-color: #4caf50;
+}
+
+/* Bouton d'ajout */
+.add-user-button,
+.save-user-button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.add-user-button:hover,
+.save-user-button:hover {
+  background-color: #45a049;
+}
+
+/* Table */
 .user-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.user-table th, .user-table td {
+.user-table th,
+.user-table td {
   padding: 12px;
   border: 1px solid #ddd;
   text-align: left;
@@ -30,17 +107,153 @@
   font-weight: bold;
 }
 
-.approve-button {
-  background-color: #4caf50;
-  color: #fff;
+.user-table td {
+  background-color: #fff;
+}
+
+/* Ligne de survol */
+.user-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Boutons d'action */
+button {
   padding: 8px 12px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.9rem;
-  transition: background-color 0.3s ease;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+/* Bouton de validation */
+.approve-button {
+  background-color: #4caf50;
+  color: #fff;
+  margin-right: 5px;
 }
 
 .approve-button:hover {
   background-color: #45a049;
+}
+
+/* Bouton de modification */
+.edit-button {
+  background-color: #2196f3;
+  color: #fff;
+  margin-right: 5px;
+}
+
+.edit-button:hover {
+  background-color: #1e88e5;
+}
+
+/* Bouton de suppression */
+.delete-button {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.delete-button:hover {
+  background-color: #e53935;
+}
+
+/* Boutons dans la modale de suppression */
+.modal-buttons .confirm-button {
+  background-color: #f44336;
+  color: #fff;
+  margin-right: 10px;
+}
+
+.modal-buttons .confirm-button:hover {
+  background-color: #e53935;
+}
+
+.modal-buttons .cancel-button {
+  background-color: #ccc;
+  color: #333;
+}
+
+.modal-buttons .cancel-button:hover {
+  background-color: #b0b0b0;
+}
+
+/* Style pour le modal */
+.delete-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 90%;
+}
+
+.delete-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.confirm-button {
+  background-color: #f44336;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.confirm-button:hover {
+  background-color: #e53935;
+}
+
+.cancel-button {
+  background-color: #ccc;
+  color: #333;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: #b0b0b0;
+}
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.user-table input {
+  width: 100%;
+  padding: 5px;
+}
+.save-button {
+  background-color: #4caf50;
+  color: white;
+}
+input.editable-input {
+  padding-right: 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-right: 10px;
 }
