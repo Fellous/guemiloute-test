@@ -1,57 +1,101 @@
 import React, { useState } from "react";
+import axios from "axios";
+import "../assets/styles/CreateItem.css";
 
 const CreateItem: React.FC = () => {
-  const [itemName, setItemName] = useState("");
-  const [itemDescription, setItemDescription] = useState("");
-  const [confirmationMessage, setConfirmationMessage] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [status, setStatus] = useState("available");
+  const [category, setCategory] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const [image, setImage] = useState<File | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const newItem = {
-      name: itemName,
-      description: itemDescription,
-    };
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("status", status);
+    formData.append("category", category);
+    formData.append("quantity", quantity.toString());
+    if (image) formData.append("image", image);
 
-    console.log("Objet créé:", newItem);
-
-    setConfirmationMessage("Objet créé avec succès !");
-
-    setTimeout(() => setConfirmationMessage(""), 3000);
-    setItemName("");
-    setItemDescription("");
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/items`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("Item créé :", response.data);
+    } catch (error) {
+      console.error("Erreur lors de la création de l'item :", error);
+    }
   };
 
   return (
     <div className="create-item-container">
-      <h2>Créer un nouvel objet à prêter</h2>
+      <h2>Créer un Nouvel Item</h2>
       <form onSubmit={handleSubmit} className="create-item-form">
         <div className="form-group">
-          <label>Nom de l'objet</label>
+          <label>Titre :</label>
           <input
             type="text"
-            value={itemName}
-            onChange={(e) => setItemName(e.target.value)}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             required
-            className="form-input"
           />
         </div>
         <div className="form-group">
-          <label>Description de l'objet</label>
+          <label>Description :</label>
           <textarea
-            value={itemDescription}
-            onChange={(e) => setItemDescription(e.target.value)}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             required
-            className="form-input"
+          />
+        </div>
+        <div className="form-group">
+          <label>Statut :</label>
+          <select value={status} onChange={(e) => setStatus(e.target.value)}>
+            <option value="available">Disponible</option>
+            <option value="lent">Prêté</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label>Catégorie :</label>
+          <input
+            type="text"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Quantité :</label>
+          <input
+            type="number"
+            value={quantity}
+            onChange={(e) => setQuantity(Number(e.target.value))}
+            min="1"
+          />
+        </div>
+        <div className="form-group">
+          <label>Image :</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) =>
+              setImage(e.target.files ? e.target.files[0] : null)
+            }
           />
         </div>
         <button type="submit" className="submit-button">
-          Créer l'objet
+          Créer
         </button>
       </form>
-      {confirmationMessage && (
-        <p className="confirmation-message">{confirmationMessage}</p>
-      )}
     </div>
   );
 };

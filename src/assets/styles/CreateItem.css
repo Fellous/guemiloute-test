@@ -1,0 +1,91 @@
+.create-item-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.create-item-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+input,
+textarea,
+select {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #007bff;
+}
+
+textarea {
+  resize: none;
+  height: 100px;
+  grid-column: span 2;
+}
+
+.create-item-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  grid-column: span 2;
+}
+
+.create-item-button:hover {
+  background-color: #0056b3;
+}
+
+.message {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #28a745;
+  grid-column: span 2;
+}
+
+@media (max-width: 768px) {
+  .create-item-form {
+    grid-template-columns: 1fr;
+  }
+
+  textarea,
+  .create-item-button,
+  .message {
+    grid-column: span 1;
+  }
+}
